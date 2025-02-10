@@ -36,6 +36,7 @@ export default function RootLayout() {
           headerTintColor: theme.text,
           headerShadowVisible: false,
           headerTitleAlign: "center",
+          headerShown: false,
         }}
       >
         <Stack.Screen

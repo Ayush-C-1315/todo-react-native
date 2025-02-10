@@ -4,7 +4,6 @@ import {
   Appearance,
   FlatList,
   Platform,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,6 +12,7 @@ import {
   Pressable,
   Switch,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Link } from "expo-router";
 
 import { useState } from "react";
@@ -52,7 +52,9 @@ export default function MenuScreen() {
   };
   const ListHeader = (
     <View>
-      <Text style={styles.todoHead}>Todos</Text>
+      <Text style={[styles.todoHead, { position: "sticky", top: 0 }]}>
+        Todos
+      </Text>
       <View style={styles.addComponent}>
         <TextInput
           placeholder="Enter a task"
@@ -114,11 +116,18 @@ export default function MenuScreen() {
         contentContainerStyle={styles.listContainer}
         ListHeaderComponent={ListHeader}
         ListHeaderComponentStyle={styles.headers}
+        ListFooterComponent={
+          <Link
+            href="/"
+            style={{ width: "100%", textAlign: "center", margin: 10 }}
+          >
+            <Text style={{ color: "white", fontSize: 20 }}>
+              👈 Back to Home
+            </Text>
+          </Link>
+        }
         ItemSeparatorComponent={ListSeparatorComp}
       />
-      <Link href="/" style={{ width: "100%", textAlign: "center", margin: 10 }}>
-        <Text style={{ color: "white", fontSize: 20 }}>👈 Back to Home</Text>
-      </Link>
     </ListContianer>
   );
 }
@@ -132,8 +141,8 @@ function createStyles(theme, colorScheme) {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "flex-start",
-      padding: 10,
-      marginVertical: 8,
+      padding: 5,
+      marginVertical: 5,
       backgroundColor: "#f8f8f8",
       borderRadius: 8,
       gap: 30,
@@ -146,6 +155,8 @@ function createStyles(theme, colorScheme) {
       justifyContent: "space-between",
       padding: 5,
       alignItems: "center",
+      width: "100%",
+      overflowX: "hidden",
     },
     addComponent: {
       flexDirection: "row",
@@ -156,6 +167,7 @@ function createStyles(theme, colorScheme) {
     },
     todoDescription: {
       color: "white",
+      maxWidth: "70%",
     },
     headers: {
       padding: 12,
